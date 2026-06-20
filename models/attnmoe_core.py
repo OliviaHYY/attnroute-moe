@@ -151,7 +151,7 @@ class ExperimentLogger:
   def save(self, path):
     import json
     with open(path,'w') as fh: json.dump({"name":self.name,"history":self.history},fh,indent=2)
-    print(f"  Saved → {path}")
+    print(f"Saved → {path}")
 
 
 # ── training and validation functions ────
@@ -219,5 +219,6 @@ for epoch in range(1, 4):
   logger.log(epoch, tm, vm, schedule.get_lambda(step))
 
 logger.summary()
-logger.save("/home/claude/month1/smoke_test_log.json")
+# Personal_Save (change to your own route)
+# logger.save("/home/claude/month1/smoke_test_log.json")
 print("\n✓ Full training loop end-to-end")
