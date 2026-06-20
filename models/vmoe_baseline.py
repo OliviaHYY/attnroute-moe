@@ -1,5 +1,5 @@
 # ══════════════════════════════════════════════════════════════════════════════
-# WEEK 1 — V-MoE baseline implementation
+# V-MoE baseline implementation
 # Standard learned-router MoE — the primary comparison in every experiment.
 # ══════════════════════════════════════════════════════════════════════════════
 import torch
@@ -191,7 +191,7 @@ class WrappedViT(nn.Module):
   """
   def __init__(self, backbone, moe_block, num_classes=200):
     super().__init__()
-    self.backbone  = backbone
+    self.backbone = backbone
     self.moe_block = moe_block
     self.head = nn.Linear(768, num_classes)
     for p in self.backbone.parameters():
@@ -216,10 +216,10 @@ def parameter_count(model):
   total = sum(p.numel() for p in model.parameters())
   trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
   frozen = total - trainable
-  print(f"  Total parameters:     {total:>12,}")
-  print(f"  Trainable:            {trainable:>12,}  ← should be MoE block only")
-  print(f"  Frozen (backbone):    {frozen:>12,}")
-  print(f"  Trainable fraction:   {trainable/total*100:>11.2f}%")
+  print(f"Total parameters:     {total:>12,}")
+  print(f" Trainable:            {trainable:>12,}  ← should be MoE block only")
+  print(f" Frozen (backbone):    {frozen:>12,}")
+  print(f" Trainable fraction:   {trainable/total*100:>11.2f}%")
   return trainable
 
 
@@ -239,10 +239,10 @@ def compare_routing_at_init(backbone, num_classes=10, device='cpu'):
   dummy = torch.randn(4, 3, 224, 224).to(device)
 
   vmoe_block = StandardMoEBlock()
-  ec_block   = ExpertChoiceBlock()
+  ec_block = ExpertChoiceBlock()
 
   vmoe = WrappedViT(backbone, vmoe_block, num_classes).to(device)
-  ec   = WrappedViT(backbone, ec_block, num_classes).to(device)
+  ec = WrappedViT(backbone, ec_block, num_classes).to(device)
 
   out_v = backbone.to(device)(pixel_values=dummy, output_attentions=True)
   z = out_v.last_hidden_state
@@ -289,7 +289,7 @@ if __name__ == "__main__":
   print(f"\nV-MoE forward: logits {logits.shape}, lb_loss {lb.item():.4f}")
 
   ec_block = ExpertChoiceBlock(num_experts=4)
-  model_e  = WrappedViT(backbone, ec_block, num_classes=10)
+  model_e = WrappedViT(backbone, ec_block, num_classes=10)
   logits_e, lb_e = model_e(dummy, lam=0.0)
   assert logits_e.shape == (2, 10)
   print(f"EC  forward: logits {logits_e.shape}, lb_loss {lb_e.item():.4f}")
@@ -305,7 +305,5 @@ if __name__ == "__main__":
   logits, lb = model_v(dummy)
   loss = F.cross_entropy(logits, labels) + lb
   opt.zero_grad(); loss.backward(); opt.step()
-  print(f"  Loss: {loss.item():.4f}  ✓ gradients flow")
-
+  print(f" Loss: {loss.item():.4f}  ✓ gradients flow")
   print("\n✓ week1_vmoe_baseline.py — all checks passed")
-  print("  Import StandardMoEBlock and ExpertChoiceBlock in Kaggle training runs")
