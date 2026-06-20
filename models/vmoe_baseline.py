@@ -41,7 +41,7 @@ class StandardMoEBlock(nn.Module):
     Args:
         z:   [B, N_total, d_model]
         A:   ignored (no prior) — accepted for API compatibility
-        lam: ignored            — accepted for API compatibility
+        lam: ignored  — accepted for API compatibility
     Returns:
         out:     [B, N_total, d_model]
         lb_loss: scalar
@@ -120,7 +120,7 @@ class ExpertChoiceBlock(nn.Module):
     """
     B, N_total, D = z.shape
     z_patches = self.norm(z[:, 1:, :])    # [B, 196, D]
-    N = z_patches.shape[1]                 # 196
+    N = z_patches.shape[1]                 
 
     # capacity: how many tokens each expert selects
     c = max(1, int(N * self.c_factor / self.E))  # e.g. ceil(196*2/4) = 98
@@ -216,10 +216,10 @@ def parameter_count(model):
   total = sum(p.numel() for p in model.parameters())
   trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
   frozen = total - trainable
-  print(f"Total parameters:     {total:>12,}")
-  print(f" Trainable:            {trainable:>12,}  ← should be MoE block only")
-  print(f" Frozen (backbone):    {frozen:>12,}")
-  print(f" Trainable fraction:   {trainable/total*100:>11.2f}%")
+  print(f"Total parameters:  {total:>12,}")
+  print(f" Trainable:  {trainable:>12,}  ← should be MoE block only")
+  print(f" Frozen (backbone):  {frozen:>12,}")
+  print(f" Trainable fraction:  {trainable/total*100:>11.2f}%")
   return trainable
 
 
@@ -255,8 +255,8 @@ def compare_routing_at_init(backbone, num_classes=10, device='cpu'):
   print(f"{'Method':<20} {'CV':>8} {'Util_H':>8} {'Expert counts'}")
   print(f"{'V-MoE':<20} {m_v['cv']:>8.4f} {m_v['util_entropy']:>8.4f}  {m_v['expert_counts']}")
   print(f"{'Expert Choice':<20} {m_e['cv']:>8.4f} {m_e['util_entropy']:>8.4f}  {m_e['expert_counts']}")
-  print("\nExpect: V-MoE CV > Expert Choice CV (random router is unbalanced)")
-  print("Expect: Expert Choice CV ≈ 0 (guaranteed balance by construction)")
+  # Expect: V-MoE CV > Expert Choice CV (random router is unbalanced)
+  # Expect: Expert Choice CV ≈ 0 (guaranteed balance by construction)
 
   return {"vmoe": m_v, "expert_choice": m_e}
 
@@ -277,7 +277,7 @@ if __name__ == "__main__":
 
   # ── parameter count check ────
     vmoe_block = StandardMoEBlock(num_experts=4, top_k=2)
-    model_v    = WrappedViT(backbone, vmoe_block, num_classes=10)
+    model_v = WrappedViT(backbone, vmoe_block, num_classes=10)
     print("\nV-MoE parameter breakdown:")
     parameter_count(model_v)
 
@@ -298,7 +298,7 @@ if __name__ == "__main__":
   compare_routing_at_init(backbone, num_classes=10)
 
   # ── one training step ───
-  print("\nOne gradient step on V-MoE...")
+  print("\nOne gradient step on V-MoE.")
   opt = torch.optim.AdamW([p for p in model_v.parameters()
                               if p.requires_grad], lr=1e-4)
   labels = torch.randint(0, 10, (2,))
@@ -306,4 +306,4 @@ if __name__ == "__main__":
   loss = F.cross_entropy(logits, labels) + lb
   opt.zero_grad(); loss.backward(); opt.step()
   print(f" Loss: {loss.item():.4f}  ✓ gradients flow")
-  print("\n✓ week1_vmoe_baseline.py — all checks passed")
+  print("\n✓ vmoe_baseline.py — all checks passed")
