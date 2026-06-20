@@ -5,8 +5,6 @@ from torch.utils.data import DataLoader, TensorDataset
 from transformers import ViTModel, ViTConfig
 import numpy as np
 
-# ── TODO: paste all classes here for the test ───
-
 class AttentionPrior(nn.Module):
   def __init__(self, num_experts=4, eps=1e-8):
     super().__init__()
@@ -134,7 +132,7 @@ class ExperimentLogger:
         "util_entropy": val_m["util_entropy"],
         "expert_counts": val_m["expert_counts"],
     })
-    print(f"  Ep {epoch:3d} | λ={lam:.3f} | loss={train_m['avg_loss']:.4f} | "
+    print(f" Ep {epoch:3d} | λ={lam:.3f} | loss={train_m['avg_loss']:.4f} | "
           f"acc={val_m['val_acc']*100:.1f}% | CV={val_m['cv']:.4f} | "
           f"H={val_m['util_entropy']:.3f} | experts={val_m['expert_counts']}")
 
@@ -174,6 +172,7 @@ def train_one_epoch(model, loader, optimizer, schedule, current_step, device):
     current_step  += 1
   return {"avg_loss": total_loss/total_samples, "avg_acc": total_correct/total_samples, "step": current_step}
 
+
 @torch.no_grad()
 def validate(model, loader, moe_block, schedule, step, device):
   model.eval()
@@ -188,10 +187,10 @@ def validate(model, loader, moe_block, schedule, step, device):
     z = outputs.last_hidden_state; A = outputs.attentions[-1]
     all_metrics.append(moe_block.get_routing_metrics(z, A, lam))
   return {
-      "val_acc":      total_correct/total_samples,
-      "cv":           np.mean([m["cv"] for m in all_metrics]),
-      "util_entropy": np.mean([m["util_entropy"] for m in all_metrics]),
-      "expert_counts": np.sum([m["expert_counts"] for m in all_metrics], axis=0).tolist(),
+      "val_acc":  total_correct/total_samples,
+      "cv":  np.mean([m["cv"] for m in all_metrics]),
+      "util_entropy":  np.mean([m["util_entropy"] for m in all_metrics]),
+      "expert_counts":  np.sum([m["expert_counts"] for m in all_metrics], axis=0).tolist(),
   }
 
 
@@ -221,4 +220,4 @@ for epoch in range(1, 4):
 
 logger.summary()
 logger.save("/home/claude/month1/smoke_test_log.json")
-print("\n✓ Full training loop end-to-end — ready for Kaggle")
+print("\n✓ Full training loop end-to-end")
