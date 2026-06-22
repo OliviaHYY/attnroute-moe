@@ -1,0 +1,4 @@
+  V-MoE CV at init:    0.9178
+  EC    CV at init:    0.0000
+  V-MoE expert counts: [744, 155, 652, 17]
+  EC    expert counts: [392, 392, 392, 392]
