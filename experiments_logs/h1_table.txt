@@ -1,10 +1,11 @@
-Backbone                 N  Mean H gap       ±   %pos   CLS gap
+Backbone                 N   Mean H gap   ±    %pos   CLS gap
 ----------------------------------------------------------------
-MAE                    500      0.0067  0.1561  53.8%   -0.0333
-DeiT                   500      0.1547  0.1399  87.6%    0.0216
-DINOv1                 500      0.0602  0.0619  85.8%   -0.0331
-DINOv2                 500     -0.0001  0.0001  12.8%    0.0000
+MAE                    500    0.0067   0.1561  53.8%   -0.0333
+DeiT                   500    0.1547   0.1399  87.6%    0.0216
+DINOv1                 500    0.0602   0.0619  85.8%   -0.0331
+DINOv2                 500   -0.0001   0.0001  12.8%    0.0000
 ----------------------------------------------------------------
+
 H gap > 0:   background entropy > foreground entropy ✓
 CLS gap > 0: foreground more similar to CLS token ✓
 Best backbone = highest mean H gap + highest %pos
