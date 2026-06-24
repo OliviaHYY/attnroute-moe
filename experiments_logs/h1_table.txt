@@ -9,3 +9,20 @@ DINOv2                 500   -0.0001   0.0001  12.8%    0.0000
 H gap > 0:   background entropy > foreground entropy ✓
 CLS gap > 0: foreground more similar to CLS token ✓
 Best backbone = highest mean H gap + highest %pos
+
+
+Layer sensitivity sweep over 100 images for DeiT...
+  Layer  0: H_gap=0.0889  pct_pos=64.0%
+  Layer  1: H_gap=-0.0020  pct_pos=45.0%
+  Layer  2: H_gap=0.0152  pct_pos=52.0%
+  Layer  3: H_gap=0.0278  pct_pos=58.0%
+  Layer  4: H_gap=0.0433  pct_pos=56.0%
+  Layer  5: H_gap=0.0166  pct_pos=57.0%
+  Layer  6: H_gap=-0.0002  pct_pos=53.0%
+  Layer  7: H_gap=0.0111  pct_pos=56.0%
+  Layer  8: H_gap=-0.0189  pct_pos=49.0%
+  Layer  9: H_gap=0.0165  pct_pos=57.0%
+  Layer 10: H_gap=-0.0703  pct_pos=27.0%
+  Layer 11: H_gap=0.1306  pct_pos=82.0%
+ → Best layer: 11
+[🏆] Sweep completed. Optimal layer is 11
