@@ -1,0 +1,7 @@
+Main results on Tiny ImageNet
+
+Method                   Top-1 (%)    CV@ep1 ↓    CV@ep5     CV@final    Steps-90% ↓
+Dense ViT-B (no MoE)      85.62                                              1
+V-MoE                     85.63       0.1654      0.1173      0.0767         2
+Expert Choice             85.57       0.0000      0.0000      0.0000         2
+AttnRoute-MoE B (ours)    85.75       0.1253      0.0877      0.0914         2
