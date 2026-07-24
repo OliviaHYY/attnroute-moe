@@ -1,0 +1,31 @@
+% Table 3 — Version A / Random Prior / Version B ablation
+
+\begin{table}[h]
+\centering
+\small
+\caption{%
+  Ablation results on Tiny ImageNet (frozen DeiT-B/16, $E=4$, $k=2$, 45 epochs).
+  \textbf{Version A} removes $W_r$ entirely; routing is driven by the attention
+  prior alone ($S_i = P_i$, $\lambda=1$ fixed).
+  \textbf{Random Prior} replaces the attention prior with a fixed random
+  per-position signal of matched scale while keeping $W_r$ and the same
+  annealing schedule as Version~B, isolating whether collapse reduction
+  requires semantic attention structure or merely any structured signal.
+  Version~A achieves the lowest CV at epoch~1 of any non-EC method but
+  shows rising CV over training; the random prior ablation shows that
+  structured spatial diversity---not semantic attention content
+  specifically---drives most of the collapse reduction.
+}
+\label{tab:ablation}
+\begin{tabular}{lccccc}
+\toprule
+Method & Top-1 (\%) & CV@ep1 $\downarrow$ & CV@ep5 & CV@final & $\Delta$CV@ep1 vs V-MoE \\
+\midrule
+V-MoE~\citep{riquelme2021vmoe}         & 85.63 & 0.1654 & 0.1173 & 0.0767 & --- \\
+Random prior $+$ $W_r$ (ablation)      & \textbf{85.84} & 0.1299 & 0.0989 & 0.0714 & $-21.5\%$ \\
+\textbf{AttnRoute-MoE B (ours)}        & 85.75 & \textbf{0.1253} & \textbf{0.0877} & 0.0914 & $\mathbf{-24.2\%}$ \\
+E7: entropy only (ablation)            & 85.85 & 0.1434 & 0.1321 & 0.0968 & $-13.3\%$ \\
+Version A: prior only (ablation)       & 85.65 & 0.1096 & 0.1240 & 0.1287 & $-33.7\%$ \\
+\bottomrule
+\end{tabular}
+\end{table}
