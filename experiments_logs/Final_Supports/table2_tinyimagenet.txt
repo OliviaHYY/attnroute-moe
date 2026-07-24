@@ -5,3 +5,42 @@ Dense ViT-B (no MoE)      85.62                                              1
 V-MoE                     85.63       0.1654      0.1173      0.0767         2
 Expert Choice             85.57       0.0000      0.0000      0.0000         2
 AttnRoute-MoE B (ours)    85.75       0.1253      0.0877      0.0914         2
+
+
+% LaTex Final Table
+\begin{table}[H]
+\centering
+\small
+\caption{%
+  Main results on Tiny ImageNet (200 classes, frozen DeiT-B/16 backbone,
+  $E=4$, $k=2$). \textbf{CV@ep1}: coefficient of variation of per-expert
+  token load at epoch~1 (lower = less collapse). \textbf{CV@ep5}: same at
+  epoch~5. \textbf{Steps-90\%}: epoch at which validation accuracy first
+  reaches 90\% of its best value. V-MoE and AttnRoute-MoE~B (T50\%) values
+  are means $\pm$ standard deviation over three random seeds (seeds~0,~1,~2);
+  Dense, Expert Choice, and T25\% are single-seed. The mean CV@ep1 reduction
+  of Version~B (T50\%) over V-MoE is $10.8\% \pm 15.4\%$ ($t = 1.47$,
+  $p > 0.05$); T25\% achieves lower final CV at the cost of higher CV@ep1.
+}
+\label{tab:main_results}
+\makebox[\textwidth][c]{
+\begin{tabular}{lrrrrr}
+\toprule
+Method & \multicolumn{1}{c}{Top-1 (\%)} & \multicolumn{1}{c}{CV@ep1 $\downarrow$} & \multicolumn{1}{c}{CV@ep5} & \multicolumn{1}{c}{CV@final} & \multicolumn{1}{c}{Steps-90\% $\downarrow$} \\
+\midrule
+Dense ViT-B (no MoE)
+  & 85.62 & --- & --- & --- & 1 \\
+V-MoE~\citep{riquelme2021vmoe}
+  & $85.91 \pm 0.20$ & $0.1682 \pm 0.0101$ & $0.1340 \pm 0.0134$
+  & $0.0873 \pm 0.0228$ & 2 \\
+Expert Choice~\citep{zhou2022expertchoice}
+  & 85.57 & 0.0000 & 0.0000 & 0.0000 & 2 \\
+\textbf{AttnRoute-MoE B T50\% (ours)}
+  & $\mathbf{85.93 \pm 0.14}$ & $\mathbf{0.1491 \pm 0.0202}$
+  & $\mathbf{0.1175 \pm 0.0294}$ & $0.0831 \pm 0.0105$ & 2 \\
+AttnRoute-MoE B T25\% (ours, 1 seed)
+  & 85.76 & 0.1615 & 0.1151 & $\mathbf{0.0776}$ & 2 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
