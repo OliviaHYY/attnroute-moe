@@ -1,3 +1,17 @@
+"""
+AttnRoute-MoE model components.
+
+Core classes:
+    AttentionPrior      — 3E-parameter routing prior from attention signals
+    AttnRouteMoEBlock   — Full Version B MoE block with annealed prior
+    StandardMoEBlock    — V-MoE baseline router (no prior)
+    WrappedViT          — Frozen DeiT-B/16 + MoE block + classification head
+    CosineAnnealSchedule — Lambda schedule for prior annealing
+
+Paper: AttnRoute-MoE: Attention-Prior Routing for MoE Vision Transformers
+Zenodo: https://doi.org/10.5281/zenodo.21635491
+"""
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -195,7 +209,6 @@ def validate(model, loader, moe_block, schedule, step, device):
 
 
 # ── smoke test ──
-print("Smoke test — 3 epochs on synthetic data...")
 config = ViTConfig(hidden_size=768, num_hidden_layers=12, num_attention_heads=12,
                    intermediate_size=3072, image_size=224, patch_size=16,
                    num_channels=3, attn_implementation="eager")
