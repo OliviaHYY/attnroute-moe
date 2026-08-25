@@ -220,5 +220,5 @@ for epoch in range(1, 4):
 
 logger.summary()
 # Personal_Save (change to your own route)
-# logger.save("/home/claude/month1/smoke_test_log.json")
+# logger.save("/home/smoke_test_log.json")
 print("\n✓ Full training loop end-to-end")
