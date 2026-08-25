@@ -1,5 +1,5 @@
 """
-make_figure5b.py — Generate Figure 5b: Random Prior specialization comparison
+make_figure5b.py — Generate Figure 5b (Figure 6 in paper): Random Prior specialization comparison
 Run with the Random Prior (E10b) best checkpoint:
 
 Also generates a side-by-side comparison of Figure 5 (Version B) and Figure 5b
