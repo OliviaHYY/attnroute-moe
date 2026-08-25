@@ -1,0 +1,1 @@
+Data utilities for Tiny ImageNet. Download Tiny ImageNet from http://cs231n.stanford.edu/tiny-imagenet-200.zip and unzip to data/tiny-imagenet-200/. The dataloader.py script handles the val folder reorganization automatically.
