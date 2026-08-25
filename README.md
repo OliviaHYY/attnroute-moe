@@ -15,15 +15,15 @@ Code, experiment logs, and figures for the AttnRoute-MoE paper.
 AttnRoute-MoE uses three scalar signals from the self-attention matrix
 (entropy, cross-head variance, CLS-similarity) as a routing prior that
 anneals to zero during training, leaving a standard MoE at inference.
-**Key finding:** routing diversity — not semantic content — is the primary
+**Key finding:** Routing diversity — not semantic content — is the primary
 factor in preventing expert collapse early in training.
 
 ---
 
 ## Repository structure
-experiments_logs/ # JSON logs for all experiments (E1–E17)
+experiments_logs/ # JSON logs for all experiments
 models/ # Model class definitions (AttnRouteMoEBlock, etc.)
-notebooks/ # Kaggle-compatible training notebooks
+notebooks/ # Training notebooks
 utils/ # Figure generation, analysis utilities
 data/ # Data loading utilities (Tiny ImageNet)
 
@@ -38,7 +38,7 @@ pip install torch torchvision transformers numpy matplotlib
 ## Reproducing experiments
 
 | Experiment | Description |
-|---|---|---|
+|---|---|
 | E1 Dense | Dense ViT-B baseline | 
 | E2 V-MoE | V-MoE baseline (3 seeds) | 
 | E4 Version B | AttnRoute-MoE T50% (3 seeds) 
@@ -56,7 +56,7 @@ If you use this code, please cite:
 @misc{yu2026attnroute,
   title   = {AttnRoute-MoE: Attention-Prior Routing for
              Mixture-of-Experts Vision Transformers},
-  author  = {Yu, Hanyu (Olivia)},
+  author  = {Yu, Hanyu},
   year    = {2026},
   doi     = {10.5281/zenodo.21635491},
   url     = {https://doi.org/10.5281/zenodo.21635491}
