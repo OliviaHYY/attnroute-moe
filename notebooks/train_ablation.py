@@ -852,8 +852,8 @@ def compare_mode(log_dir, e2_log, e4_log, out_dir=None):
 
     logs = {
         'E2_VMoE':      try_load(e2_log),
-        'E10b_Random':  try_load('E10b_RandomPrior_TinyIN_E4k2_T50_log.json'),
-        'E10_VersionA': try_load('E10_VersionA_TinyIN_E4k2_log.json'),
+        'E10b_Random':  try_load('E10b_RandomPrior_TinyIN_T50_log.json'),
+        'E10_VersionA': try_load('E10_VersionA_TinyIN_log.json'),
         'E4_VersionB':  try_load(e4_log),
     }
     make_ablation_comparison(logs, out_dir)
@@ -868,12 +868,12 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--mode',    choices=['smoke','full','compare'],
                         default='smoke')
-    parser.add_argument('--exp',     default='E10b', help='E10 or E10b')
+    parser.add_argument('--exp',     default='E10b', help='E7/E10/E10b')
     parser.add_argument('--out_dir', default='.')
     parser.add_argument('--data_dir',default='/tmp')
     parser.add_argument('--epochs',  type=int, default=45)
-    parser.add_argument('--e2_log',  default='E2_VMoE_TinyImageNet_E4k2_log.json')
-    parser.add_argument('--e4_log',  default='E4_VersionB_TinyImageNet_E4k2_T50_log.json')
+    parser.add_argument('--e2_log',  default='E2_VMoE_TinyImageNet_log.json')
+    parser.add_argument('--e4_log',  default='E4_VersionB_TinyImageNet_T50_log.json')
     args = parser.parse_args()
 
     os.makedirs(args.out_dir, exist_ok=True)
