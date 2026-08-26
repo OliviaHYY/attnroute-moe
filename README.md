@@ -21,9 +21,10 @@ factor in preventing expert collapse early in training.
 ---
 
 ## Repository structure
-experiments_logs/    JSON logs for all experiments \
+experiments/logs/    JSON logs for all experiments \
+experiments/results/ Figures and tables for the paper \
 models/              Model class definitions (AttnRouteMoEBlock, etc.) \
-notebooks/           Training notebooks \
+training/            Training scripts \
 utils/               Figure generation, analysis utilities \
 data/                Data loading utilities (Tiny ImageNet)
 
