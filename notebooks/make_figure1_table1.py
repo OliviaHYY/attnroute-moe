@@ -176,4 +176,4 @@ if __name__ == "__main__":
     plot_entropy_map(dummy_np, H_i[0].numpy(),
                      title="Sanity check",
                      save_path="/mnt/user-data/outputs/h1_sanity.png")
-    print("✓ week2_h1_signals.py ready")
+    print("✓ make_figure1_table1.py ready")
