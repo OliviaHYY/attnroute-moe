@@ -10,8 +10,6 @@ python training/train_main.py --exp E4 --seed 0
 ## Reproduce ablations (E7 only)  
 python training/train_ablation.py --mode full --exp E7 ...
 
-## Reproduce Figure 3 and 4
-
 ## Reproduce Figure 5b
 python utils/make_figure5b.py --ckpt_vb <VB_best.pt>
   --ckpt_rp <RP_best.pt> ...
