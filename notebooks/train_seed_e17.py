@@ -595,7 +595,7 @@ if __name__ == '__main__':
     parser.add_argument('--data_dir', default='/content/tiny-imagenet-200', help='Local fast disk storage')
     parser.add_argument('--out_dir',  default='/content/drive/MyDrive/tinyimagenet_experiments', help='Google Drive persistent storage')
     # e17 args
-    parser.add_argument('--ckpt',     default='/content/drive/MyDrive/tinyimagenet_experiments/E4_VersionB_TinyIN_E4k2_T50_seed2_best.pt',
+    parser.add_argument('--ckpt',     default='/content/drive/MyDrive/tinyimagenet_experiments/E4_VersionB_TinyIN_T50_seed2_best.pt',
                         help='path to best E4 checkpoint .pt file')
     parser.add_argument('--n_bins',   type=int, default=10)
     args, _ = parser.parse_known_args()
@@ -616,6 +616,6 @@ if __name__ == '__main__':
         seeds_compare(log_dir=args.out_dir, out_dir=args.out_dir)
 
     elif args.mode == 'e17':
-        target_ckpt = args.ckpt if args.ckpt else os.path.join(args.out_dir, "E4_VersionB_TinyIN_E4k2_T50_seed2_best.pt")
+        target_ckpt = args.ckpt if args.ckpt else os.path.join(args.out_dir, "E4_VersionB_TinyIN_T50_seed2_best.pt")
         assert os.path.exists(target_ckpt), f"❌ Specified checkpoint missing: {target_ckpt}"
         e17_specialization(target_ckpt, args.data_dir, args.out_dir, device, n_bins=args.n_bins)
