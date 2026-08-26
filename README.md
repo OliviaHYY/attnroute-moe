@@ -40,8 +40,11 @@ pip install torch torchvision transformers numpy matplotlib
 |---|---|
 | E1 Dense | Dense ViT-B baseline | 
 | E2 V-MoE | V-MoE baseline (3 seeds) | 
-| E4 Version B | AttnRoute-MoE T50% (3 seeds) 
+| E3 Expert Choice | Comparison Method | 
+| E4 Version B | AttnRoute-MoE T50% (3 seeds) |
+| E4b Version B | AttnRoute-MoE T25% |
 | E7 Entropy only | Signal dropout ablation | 
+| E10 Version A | AttnRoute-MoE, W_r removed |
 | E10b Random Prior | Random prior ablation |
 | E17 Specialization | Expert routing analysis |
 
