@@ -1,5 +1,5 @@
 # ══════════════════════════════════════════════════════════════════════════════
-# E10 (Version A) and E10b (Random Prior) ablations
+# E10 (Version A), E10b (Random Prior) and E7 (Entropy Only) ablations
 #
 # PURPOSE:
 #   E10  — Version A: prior only, no W_r. Designed lower bound.
@@ -7,11 +7,10 @@
 #   E10b — Random prior: fixed random per-position signal + W_r.
 #           Tests whether ANY structured signal helps, or semantic
 #           attention structure specifically is what reduces collapse.
-#
-# BOTH run on Tiny ImageNet, 45 epochs, same setup as E4 Version B T50%.
-# This makes all three directly comparable in the paper.
+#   E7 - Entropy only
 #
 # FIGURES PRODUCED:
+#   e7_training_curves.png
 #   e10_training_curves.png
 #   e10b_training_curves.png
 #   ablation_comparison.png   ←  the key figure: V-MoE / Random / VB / VA
@@ -453,6 +452,14 @@ def run_experiment(exp_id, backbone, train_loader, val_loader,
         run_name  = 'E10b_RandomPrior_TinyIN_E4k2_T50'
         # Same annealing as Version B T50% — fair comparison
         schedule  = CosineAnnealSchedule(total_steps, frac=0.50)
+        
+    elif exp_id == 'E7':
+        # Entropy Only - E7
+        moe_block = AttnRouteMoEBlock(E=4, k=2, version='B', lb=0.01,
+                                  active=(0,)).to(device)
+        run_name = 'E7_Entropy_Only_TinyIN_E4k2'
+        schedule = CosineAnnealSchedule(total_steps, frac=0.50)
+                       
     else:
         raise ValueError(f"Unknown exp_id: {exp_id}")
 
