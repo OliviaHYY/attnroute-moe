@@ -1,3 +1,5 @@
-Utility scripts. analyze_logs.py: print key metrics from any experiment log. 
-make_figure_34.py: generate Figures 3–4. 
+Utility scripts. analyze_logs.py: print key metrics from any experiment log. \
+make_figures_34.py: generate Figures 3–4.  \
 make_figure5b.py: generate Figure 5b (requires Version B and Random Prior checkpoints).
+
+
