@@ -7,8 +7,6 @@
 #   E2  V-MoE (linear router)    ← baseline CV number to beat
 #   E3  Expert Choice
 #   E4  Version B (T_anneal=50%)  ← central claim
-#   E10 Version A
-#   E10b Random Prior
 #
 # PRODUCED:
 #   e{N}_training_curves.png    per-experiment 4-panel training curves
@@ -654,37 +652,6 @@ def run_experiment(exp_id, backbone, train_loader, val_loader,
     schedule   = CosineAnnealSchedule(total_steps, frac=0.25)
     run_name   = 'E4b_VersionB_TinyImageNet_E4k2_T25'
 
-  elif exp_id == 'E7':
-    # Only Entropy Loss - E7
-    moe_block = AttnRouteMoEBlock(E=4, k=2, version='B', lb=0.01,
-                                  active=(0,)).to(device)
-    model = WrappedViT(backbone, moe_block, num_classes).to(device)
-    run_name = 'E7_Entropy_Only_TinyIN_E4k2'
-    schedule = CosineAnnealSchedule(total_steps, frac=0.50)
-
-  elif exp_id == 'E10':
-    moe_block = AttnRouteMoEBlock(E=4, k=2, version='A', lb=0.01).to(device)
-    model = WrappedViT(backbone, moe_block, num_classes).to(device)
-    run_name = 'E10_VersionA_TinyIN_E4k2'
-    schedule = CosineAnnealSchedule(total_steps, frac=999.0)
-
-  elif exp_id == 'E10b':
-    moe_block = AttnRouteMoEBlock(E=4, k=2, lb=0.01, seed=42,
-                                  version='b').to(device)
-    model = WrappedViT(backbone, moe_block, num_classes).to(device)
-    run_name  = 'E10b_RandomPrior_TinyIN_E4k2_T50'
-    schedule  = CosineAnnealSchedule(total_steps, frac=0.50)
-
-    import torch.nn as nn
-    wr_test = nn.Linear(768, 4, bias=False)
-    dummy   = torch.randn(4, 196, 768)
-    wr_out  = wr_test(dummy)
-    rp_out  = moe_block.rand_prior.unsqueeze(0).expand(4, -1, -1)
-    print(f"  W_r output std:     {wr_out.std():.4f}")
-    print(f"  rand_prior std:     {rp_out.std():.4f}")
-    print(f"  Ratio (want ≈ 1.0): {wr_out.std()/rp_out.std():.3f}")
-    # want ratio between 0.5 and 2.0 — if outside this range, rescaling failed
-
   else:
     raise ValueError(f"Unknown exp_id: {exp_id}")
 
@@ -1109,8 +1076,8 @@ if __name__ == '__main__':
   parser = argparse.ArgumentParser()
   parser.add_argument('--mode', choices=['smoke', 'full', 'compare'],
                       default='full')
-  parser.add_argument('--exp', default='E7',
-                  help='E1/E2/E3/E4/E4b/E7/E10/E10b')
+  parser.add_argument('--exp', default='E4',
+                  help='E1/E2/E3/E4/E4b')
   parser.add_argument('--out_dir', default='/content/outputs')
   parser.add_argument('--data_dir', default='/content/tiny-imagenet-200')
   parser.add_argument('--epochs', type=int, default=45)
