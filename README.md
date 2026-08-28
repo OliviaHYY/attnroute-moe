@@ -53,7 +53,7 @@ All training was run on Google Colab (A100 GPU).
 
 ## Citation
 
-If you use this code, please cite:
+If you use this paper (or this code), please cite:
 
 ```bibtex
 @misc{yu2026attnroute,
